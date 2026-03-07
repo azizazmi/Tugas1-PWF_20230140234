@@ -4,6 +4,6 @@
 ## Screenshot
 | **Keterangan** | **Screenshot** |
 |---|---|
-|**Users**|tugas/screenshots/pertemuan3/users.png|
-|**Products**|tugas/screenshots/pertemuan3/products.png|
-|**Kategoris**|tugas/screenshots/pertemuan3/kategori.png|
+|**Users**|![alt text](/screenshots/pertemuan3/users.png)|
+|**Products**|![alt text](/screenshots/pertemuan3/products.png)|
+|**Kategoris**|![alt text] (/screenshots/pertemuan3/kategori.png)|
