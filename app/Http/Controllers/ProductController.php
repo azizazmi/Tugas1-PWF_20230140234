@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
@@ -15,16 +17,12 @@ class ProductController extends Controller
         return view('product.index', compact('products'));
     }
 
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'quantity' => 'required|integer',
-            'price' => 'required|numeric',
-            'user_id' => 'required|exists:users,id',
-        ]);
+        // Laravel automatically validates it before it even reaches this line!
+        $validated = $request->validated();
 
-        $product = Product::create($validated);
+        Product::create($validated);
 
         return redirect()->route('product.index')->with('success', 'Product created successfully.');
     }
@@ -43,22 +41,18 @@ class ProductController extends Controller
         return view('product.view', compact('product'));
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateProductRequest $request, $id)
     {
         $product = Product::findOrFail($id);
 
-        $validated = $request->validate([
-            'name' => 'sometimes|string|max:255',
-            'quantity' => 'sometimes|integer',
-            'price' => 'sometimes|numeric',
-            'user_id' => 'sometimes|exists:users,id',
-        ]);
+        // Fetch only the validated data
+        $validated = $request->validated();
 
         $product->update($validated);
 
         return redirect()->route('product.index')->with('success', 'Product updated successfully.');
     }
-
+    
     public function edit(Product $product)
     {
         $users = User::orderBy('name')->get();
